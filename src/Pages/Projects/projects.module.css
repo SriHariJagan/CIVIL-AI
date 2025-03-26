@@ -1,0 +1,126 @@
+/* Root Theme Colors */
+:root {
+    --primary-bg: #f4f7fc;
+    --secondary-bg: #ffffff;
+    --primary-text: #1f3a52;
+    --accent-color: #4a90e2;
+    --hover-color: #357abf;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Page Container */
+  .projectsContainer {
+    width: 100%;
+    min-height: 89vh;
+    background-color: var(--primary-bg);
+    padding: 20px;
+  }
+  
+  /* Filter Bar */
+  .filterBar {
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primary-text);
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  .filterBar span {
+    padding-bottom: 4px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+  }
+  
+  .filterBar span:hover {
+    color: var(--accent-color);
+  }
+  
+  .filterBar .active {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+  }
+
+  
+  /* Search Input */
+  .searchInput {
+    padding: 6px 10px;
+    border: 1px solid var(--primary-text);
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    margin-left: 5px;
+  }
+  
+  .searchInput:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0px 0px 6px rgba(74, 144, 226, 0.5);
+  }
+  
+  /* Project Cards Grid */
+  .projectGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Individual Project Cards */
+  .projectCard {
+    background-color: var(--secondary-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .projectCard h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-text);
+    margin-bottom: 10px;
+  }
+  
+  .projectCard p {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent-color);
+  }
+  
+  .projectCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* No Results Message */
+  .noResults {
+    font-size: 18px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .projectGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+
+
+  }
+  
+  @media (max-width: 480px) {
+    .projectGrid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .searchInput {
+        margin: 0;
+    }
+  }
+  
