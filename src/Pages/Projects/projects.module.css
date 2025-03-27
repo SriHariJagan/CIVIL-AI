@@ -200,7 +200,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-/*   padding: 40px; */
+  /* padding: 40px; */
+  padding: 0 5px;
 }
 
 .closeNewProjectBtn {
@@ -263,7 +264,8 @@
   }
 
   .newProjectData{
-    width: 95%;
+    width: 100%;
+    overflow: hidden;
   }
 
 }
