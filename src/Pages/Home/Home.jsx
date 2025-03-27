@@ -49,9 +49,9 @@ const Home = () => {
           >
             X
           </button>
-          <div className={styles.newProjectData}>
+          {/* <div className={styles.newProjectData}> */}
             <NewProjectForm />
-          </div>
+          {/* </div> */}
         </div>
       )}
 

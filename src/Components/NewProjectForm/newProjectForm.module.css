@@ -19,7 +19,7 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 
-    overflow: scroll;
+    /* overflow: scroll; */
   }
   
   /* Title */
@@ -148,7 +148,7 @@
   @media (max-width: 508px) {
 
     .newProjectFormContainer {
-      margin: 0px;
+      margin: 20px;
       width: 100%;
     }
   

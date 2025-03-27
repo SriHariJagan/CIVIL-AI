@@ -193,13 +193,14 @@
 /* New Project Modal */
 .newProject {
   width: 100%;
-  min-height: 89vh;
+  min-height: 85vh;
   background: rgba(31, 58, 82, 0.8);
   position: absolute;
   z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 40px;
 }
 
 .closeNewProjectBtn {
