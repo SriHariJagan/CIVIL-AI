@@ -2,7 +2,7 @@ import React from 'react'
 
 import Login from './Pages/LoginPage/LoginPage'
 import Header from './Pages/Header/Header'
-import Home from './Pages/Home/Home'
+import Overview from './Pages/Overview/Overview'
 import { Route, Routes } from 'react-router-dom'
 import Projects from './Pages/Projects/Projects'
 import Task from './Pages/Task/Task'
@@ -15,8 +15,8 @@ const App = () => {
        <Header /> {/* Fixed Header */}
       <div >
         <Routes>
-          <Route path="/" element={<Projects />} />
-          <Route path="/projects" element={<Home />} />
+          <Route path="/" element={<Overview />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/tasks" element={<Task />} />
           <Route path="/users" element={<User />} />
           <Route path="/login" element={<Login />} />

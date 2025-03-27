@@ -1,57 +1,141 @@
 import React, { useState } from "react";
 import styles from "./projects.module.css";
+import { projects } from "../../data";
+import NewProjectForm from "../../Components/NewProjectForm/NewProjectForm";
 
 const Projects = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [showNewProject, setShowNewProject] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState(["all"]);
 
-  const projectData = [
-    { title: "TOTAL PROJECTS", value: "4" },
-    { title: "On Going", value: "1" },
-    { title: "On Hold", value: "1" },
-    { title: "Completed", value: "1" },
-    { title: "Budget", value: "90 Cr" },
-    { title: "Pending Budget", value: "90 Cr" },
-    { title: "All TASK", value: "150" },
-    { title: "High Priority", value: "6" },
-    { title: "ALL USER/CLIENTS", value: "30" },
-  ];
+  // Handle checkbox toggle
+  const handleFilterChange = (status) => {
+    if (status === "all") {
+      setSelectedFilters(["all"]);
+    } else {
+      let updatedFilters = [...selectedFilters];
 
-  // Filtered data based on search term
-  const filteredProjects = projectData.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      if (updatedFilters.includes(status)) {
+        updatedFilters = updatedFilters.filter((item) => item !== status);
+      } else {
+        updatedFilters.push(status);
+      }
+
+      if (updatedFilters.length === 0) {
+        updatedFilters = ["all"];
+      } else {
+        updatedFilters = updatedFilters.filter((item) => item !== "all");
+      }
+
+      setSelectedFilters(updatedFilters);
+    }
+  };
+
+  // Filter projects based on selected filters
+  const filteredProjects = projects.filter((project) =>
+    selectedFilters.includes("all")
+      ? true
+      : selectedFilters.includes(
+          project.status.toLowerCase().replace(/\s+/g, "")
+        )
   );
 
   return (
-    <div className={styles.projectsContainer}>
-      {/* Filter Options & Search Box */}
-      <div className={styles.filterBar}>
-        <span className={styles.active} onClick={() => setSearchTerm("")}>OVER ALL</span>
-        <div className={styles.filter}>
-            <span>Filter by Project:</span>
-            <input
-            type="text"
-            className={styles.searchInput}
-            placeholder="Search by title..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            />
+    <>
+      {showNewProject && (
+        <div className={styles.newProject}>
+          <button
+            className={styles.closeNewProjectBtn}
+            onClick={() => setShowNewProject(false)}
+          >
+            X
+          </button>
+          {/* <div className={styles.newProjectData}> */}
+            <NewProjectForm />
+          {/* </div> */}
+        </div>
+      )}
+
+      <div className={styles.homeContainer}>
+        {/* Filters Section */}
+        <div className={styles.homeHeader}>
+          <div className={styles.filterContainer}>
+            {["all", "new", "ongoing", "onhold", "completed"].map((status) => (
+              <label key={status}>
+                <input
+                  type="checkbox"
+                  checked={selectedFilters.includes(status)}
+                  onChange={() => handleFilterChange(status)}
+                />{" "}
+                {status.charAt(0).toUpperCase() + status.slice(1)}
+              </label>
+            ))}
+          </div>
+          <button
+            className={styles.createProject}
+            onClick={() => setShowNewProject(true)}
+          >
+            + Project
+          </button>
+        </div>
+
+        {/* Projects Table */}
+        <div className={styles.projectTableContainer}>
+          <table className={styles.projectTable}>
+            <thead>
+              <tr>
+                <th>Sr. No</th>
+                <th>PROJECT</th>
+                <th>SANCTION DATE</th>
+                <th>LENGTH</th>
+                <th>COST</th>
+                <th>PROGRESS</th>
+                <th>CONTRACTOR</th>
+                <th>DUE DATE</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredProjects.map((project, index) => (
+                <tr key={project.id}>
+                  <td>{index + 1}</td>
+                  <td>
+                    <a href="#">{project.name}</a>
+                  </td>
+                  <td>{project.sanctionDate}</td>
+                  <td className={styles.length}>{project.length}</td>
+                  <td className={styles.cost}>{project.cost}</td>
+                  <td className={styles.progress}>{project.progress}</td>
+                  <td className={styles.contractor}>{project.contractor}</td>
+                  <td>{project.dueDate}</td>
+                  <td
+                    className={`${styles.status} ${
+                      styles[project.status.replace(/\s+/g, "").toLowerCase()]
+                    }`}
+                  >
+                    {project.status}
+                  </td>
+                  <td className={styles.actions}>
+                    <a href="#" className={`${styles.actionLink} ${styles.view}`}>
+                      VIEW
+                    </a>
+                    <a href="#" className={`${styles.actionLink} ${styles.edit}`}>
+                      EDIT
+                    </a>
+                    <a href="#" className={`${styles.actionLink} ${styles.delete}`}>
+                      DELETE
+                    </a>
+                    <a href="#" className={`${styles.actionLink} ${styles.report}`}>
+                      REPORT
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-
-      {/* Project Cards */}
-      <div className={styles.projectGrid}>
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map((item, index) => (
-            <div key={index} className={styles.projectCard}>
-              <h3>{item.title}</h3>
-              <p>{item.value}</p>
-            </div>
-          ))
-        ) : (
-          <p className={styles.noResults}>No results found</p>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 
