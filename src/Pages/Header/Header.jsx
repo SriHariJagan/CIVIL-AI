@@ -75,8 +75,8 @@ const Header = () => {
               </div>
               <hr />
               <ul>
-                <li><Link to="/edit-profile">Edit Profile</Link></li>
-                <li><Link to="/account-info">Account & Info</Link></li>
+                <li><Link to="/">Edit Profile</Link></li>
+                <li><Link to="/">Account & Info</Link></li>
                 <li><button className={styles.logoutBtn}>Log Out</button></li>
               </ul>
             </div>

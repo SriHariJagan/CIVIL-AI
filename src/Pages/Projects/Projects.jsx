@@ -3,6 +3,7 @@ import styles from "./projects.module.css";
 import { projects } from "../../data";
 import NewProjectForm from "../../Components/NewProjectForm/NewProjectForm";
 import ProjectModal from "../../Components/ProjectModel/ProjectModal";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
   const [showNewProject, setShowNewProject] = useState(false);
@@ -101,7 +102,7 @@ const Projects = () => {
               {filteredProjects.map((project, index) => (
                 <tr key={project.id}>
                   <td>{index + 1}</td>
-                  <td><a href="#">{project.name}</a></td>
+                  <td><Link to="/tasks">{project.name}</Link></td>
                   <td>{project.sanctionDate}</td>
                   <td className={styles.length}>{project.length}</td>
                   <td className={styles.cost}>{project.cost}</td>
