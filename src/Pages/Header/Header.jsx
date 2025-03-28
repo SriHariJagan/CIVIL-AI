@@ -9,6 +9,8 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const avathar = "https://static-00.iconduck.com/assets.00/user-icon-1024x1024-dtzturco.png"
+
   // Toggle Navbar and Close Admin Dropdown
   const toggleNavbar = () => {
     setMenuOpen((prev) => !prev);
@@ -61,14 +63,14 @@ const Header = () => {
         {/* Admin Button with Dropdown */}
         <div className={styles.adminWrapper}>
           <button className={styles.adminBtn} onClick={toggleAdminDropdown}>
-            <img src='/public/Images/programmer.png' alt="Avatar" width={20} />
+            <img src={avathar} alt="Avatar" width={20} />
           </button>
 
           {/* Dropdown Menu */}
           {dropdownOpen && (
             <div className={styles.adminDropdown}>
               <div className={styles.profileHeader}>
-                <img src="/public/Images/programmer.png" alt="Avatar" className={styles.profilePic} />
+                <img src={avathar} alt="Avatar" className={styles.profilePic} />
                 <span className={styles.username}>Jhon Jhosey</span>
               </div>
               <hr />
