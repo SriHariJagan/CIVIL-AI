@@ -71,7 +71,7 @@ const Header = () => {
             <div className={styles.adminDropdown}>
               <div className={styles.profileHeader}>
                 <img src={avathar} alt="Avatar" className={styles.profilePic} />
-                <span className={styles.username}>Jhon Jhosey</span>
+                <span className={styles.username}>Rahul</span>
               </div>
               <hr />
               <ul>
