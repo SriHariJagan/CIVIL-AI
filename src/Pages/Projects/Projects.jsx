@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import styles from "./projects.module.css";
 import { projects } from "../../data";
 import NewProjectForm from "../../Components/NewProjectForm/NewProjectForm";
+import ProjectModal from "../../Components/ProjectModel/ProjectModal";
 
 const Projects = () => {
   const [showNewProject, setShowNewProject] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState(["all"]);
+  const [modalData, setModalData] = useState(null);
+  const [modalMode, setModalMode] = useState("view");
 
   // Handle checkbox toggle
   const handleFilterChange = (status) => {
@@ -13,19 +16,16 @@ const Projects = () => {
       setSelectedFilters(["all"]);
     } else {
       let updatedFilters = [...selectedFilters];
-
       if (updatedFilters.includes(status)) {
         updatedFilters = updatedFilters.filter((item) => item !== status);
       } else {
         updatedFilters.push(status);
       }
-
       if (updatedFilters.length === 0) {
         updatedFilters = ["all"];
       } else {
         updatedFilters = updatedFilters.filter((item) => item !== "all");
       }
-
       setSelectedFilters(updatedFilters);
     }
   };
@@ -34,9 +34,7 @@ const Projects = () => {
   const filteredProjects = projects.filter((project) =>
     selectedFilters.includes("all")
       ? true
-      : selectedFilters.includes(
-          project.status.toLowerCase().replace(/\s+/g, "")
-        )
+      : selectedFilters.includes(project.status.toLowerCase().replace(/\s+/g, ""))
   );
 
   return (
@@ -49,14 +47,23 @@ const Projects = () => {
           >
             X
           </button>
-          {/* <div className={styles.newProjectData}> */}
-            <NewProjectForm />
-          {/* </div> */}
+          <NewProjectForm />
         </div>
       )}
 
+      {modalData && (
+        <ProjectModal
+          project={modalData}
+          mode={modalMode}
+          onClose={() => setModalData(null)}
+          onDelete={() => {
+            console.log("Deleting project:", modalData);
+            setModalData(null); // Close modal after deletion
+          }}
+        />
+      )}
+
       <div className={styles.homeContainer}>
-        {/* Filters Section */}
         <div className={styles.homeHeader}>
           <div className={styles.filterContainer}>
             {["all", "new", "ongoing", "onhold", "completed"].map((status) => (
@@ -65,20 +72,15 @@ const Projects = () => {
                   type="checkbox"
                   checked={selectedFilters.includes(status)}
                   onChange={() => handleFilterChange(status)}
-                />{" "}
-                {status.charAt(0).toUpperCase() + status.slice(1)}
+                /> {status.charAt(0).toUpperCase() + status.slice(1)}
               </label>
             ))}
           </div>
-          <button
-            className={styles.createProject}
-            onClick={() => setShowNewProject(true)}
-          >
+          <button className={styles.createProject} onClick={() => setShowNewProject(true)}>
             + Project
           </button>
         </div>
 
-        {/* Projects Table */}
         <div className={styles.projectTableContainer}>
           <table className={styles.projectTable}>
             <thead>
@@ -99,34 +101,40 @@ const Projects = () => {
               {filteredProjects.map((project, index) => (
                 <tr key={project.id}>
                   <td>{index + 1}</td>
-                  <td>
-                    <a href="#">{project.name}</a>
-                  </td>
+                  <td><a href="#">{project.name}</a></td>
                   <td>{project.sanctionDate}</td>
                   <td className={styles.length}>{project.length}</td>
                   <td className={styles.cost}>{project.cost}</td>
                   <td className={styles.progress}>{project.progress}</td>
                   <td className={styles.contractor}>{project.contractor}</td>
                   <td>{project.dueDate}</td>
-                  <td
-                    className={`${styles.status} ${
-                      styles[project.status.replace(/\s+/g, "").toLowerCase()]
-                    }`}
-                  >
+                  <td className={`${styles.status} ${styles[project.status.replace(/\s+/g, "").toLowerCase()]}`}>
                     {project.status}
                   </td>
                   <td className={styles.actions}>
-                    <a href="#" className={`${styles.actionLink} ${styles.view}`}>
+                    <a 
+                      href="#" 
+                      className={`${styles.actionLink} ${styles.view}`} 
+                      onClick={() => { setModalData(project); setModalMode("view"); }}
+                    >
                       VIEW
                     </a>
-                    <a href="#" className={`${styles.actionLink} ${styles.edit}`}>
+                    <a 
+                      href="#" 
+                      className={`${styles.actionLink} ${styles.edit}`} 
+                      onClick={() => { setModalData(project); setModalMode("edit"); }}
+                    >
                       EDIT
                     </a>
-                    <a href="#" className={`${styles.actionLink} ${styles.delete}`}>
+                    <a
+                      href="#"
+                      className={`${styles.actionLink} ${styles.delete}`}
+                      onClick={() => {
+                        setModalData(project);
+                        setModalMode("delete");
+                      }}
+                    >
                       DELETE
-                    </a>
-                    <a href="#" className={`${styles.actionLink} ${styles.report}`}>
-                      REPORT
                     </a>
                   </td>
                 </tr>

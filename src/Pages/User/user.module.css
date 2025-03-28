@@ -48,6 +48,34 @@
     background-color: #4985df;
   }
 
+  .newUserForm{
+    width: 100%;
+    min-height: 100%;
+    background: rgba(31, 58, 82, 0.8);
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding: 40px; */
+    padding: 0 5px;
+  }
+
+
+  .closeFormBtn {
+    position: absolute;
+    top: 20px;
+    right: 100px;
+    padding: 8px 14px;
+    border-radius: 50%;
+    border: 1px solid red;
+    background-color: rgb(253, 174, 174);
+    color: red;
+    font-weight: 800;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
 
   
   .tableContainer {

@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import styles from "./header.module.css";
-import { FiMenu } from "react-icons/fi"; // Import menu icon
-import { IoMdClose } from "react-icons/io"; // Import close icon
+import { FiMenu } from "react-icons/fi";
+import { IoMdClose } from "react-icons/io";
 import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
   const [showInput, setShowInput] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // Toggle Navbar and Close Admin Dropdown
+  const toggleNavbar = () => {
+    setMenuOpen((prev) => !prev);
+    setDropdownOpen(false); // Close profile dropdown
+  };
+
+  // Toggle Admin Dropdown and Close Navbar
+  const toggleAdminDropdown = () => {
+    setDropdownOpen((prev) => !prev);
+    setMenuOpen(false); // Close navbar
+  };
 
   return (
     <header className={styles.headerContainer}>
@@ -17,20 +30,20 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* Navbar - Desktop & Mobile */}
+      {/* Navbar */}
       <nav className={`${styles.navbar} ${menuOpen ? styles.navOpen : ""}`}>
         <ul>
           <li>
-            <NavLink to="/" className={({ isActive }) => isActive ? styles.activeLink : ""}>Overview</NavLink>
+            <NavLink to="/" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Overview</NavLink>
           </li>
           <li>
-            <NavLink to="/projects" className={({ isActive }) => isActive ? styles.activeLink : ""}>Projects</NavLink>
+            <NavLink to="/projects" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Projects</NavLink>
           </li>
           <li>
-            <NavLink to="/tasks" className={({ isActive }) => isActive ? styles.activeLink : ""}>Tasks</NavLink>
+            <NavLink to="/tasks" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Tasks</NavLink>
           </li>
           <li>
-            <NavLink to="/users" className={({ isActive }) => isActive ? styles.activeLink : ""}>Users</NavLink>
+            <NavLink to="/users" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Users</NavLink>
           </li>
         </ul>
       </nav>
@@ -40,16 +53,36 @@ const Header = () => {
         {/* Search Bar */}
         <span className={styles.searchContainer}>
           {showInput && <input type="text" className={styles.searchInput} placeholder="Search..." />}
-          <button onClick={() => setShowInput(prev => !prev)} className={styles.searchBtn}>
+          <button onClick={() => setShowInput((prev) => !prev)} className={styles.searchBtn}>
             <img src="/Images/searchIcon.png" alt="Search" width={10} />
           </button>
         </span>
 
-        {/* Admin Button */}
-        <button className={styles.adminBtn}>Admin</button>
+        {/* Admin Button with Dropdown */}
+        <div className={styles.adminWrapper}>
+          <button className={styles.adminBtn} onClick={toggleAdminDropdown}>
+            <img src="/Images/programmer.png" alt="Admin Icon" width={20} />
+          </button>
 
-        {/* Hamburger Menu for Mobile */}
-        <button className={styles.menuBtn} onClick={() => setMenuOpen(prev => !prev)}>
+          {/* Dropdown Menu */}
+          {dropdownOpen && (
+            <div className={styles.adminDropdown}>
+              <div className={styles.profileHeader}>
+                <img src="/Images/programmer.png" alt="User Avatar" className={styles.profilePic} />
+                <span className={styles.username}>Jhon Jhosey</span>
+              </div>
+              <hr />
+              <ul>
+                <li><Link to="/edit-profile">Edit Profile</Link></li>
+                <li><Link to="/account-info">Account & Info</Link></li>
+                <li><button className={styles.logoutBtn}>Log Out</button></li>
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Hamburger Menu */}
+        <button className={styles.menuBtn} onClick={toggleNavbar}>
           {menuOpen ? <IoMdClose size={24} /> : <FiMenu size={24} />}
         </button>
       </div>
