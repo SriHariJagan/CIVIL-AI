@@ -4,6 +4,8 @@ import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { NavLink, Link } from "react-router-dom";
 
+import userIcon from '/Images/programmer.png'
+
 const Header = () => {
   const [showInput, setShowInput] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -61,14 +63,14 @@ const Header = () => {
         {/* Admin Button with Dropdown */}
         <div className={styles.adminWrapper}>
           <button className={styles.adminBtn} onClick={toggleAdminDropdown}>
-            <img src="/Images/programmer.png" alt="Admin Icon" width={20} />
+            <img src={userIcon} alt="Admin Icon" width={20} />
           </button>
 
           {/* Dropdown Menu */}
           {dropdownOpen && (
             <div className={styles.adminDropdown}>
               <div className={styles.profileHeader}>
-                <img src="/Images/programmer.png" alt="User Avatar" className={styles.profilePic} />
+                <img src={userIcon} alt="User Avatar" className={styles.profilePic} />
                 <span className={styles.username}>Jhon Jhosey</span>
               </div>
               <hr />

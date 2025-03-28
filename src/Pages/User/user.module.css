@@ -149,5 +149,11 @@
     .filterBar{
         width: 50%;
     }
+
+    .closeFormBtn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
   }
   
