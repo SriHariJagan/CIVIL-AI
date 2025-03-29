@@ -2,53 +2,101 @@ import React, { useState } from "react";
 import styles from "./overview.module.css";
 
 const Overview = () => {
+  const [isProjectOpen, setIsProjectOpen] = useState(true);
+  const [isTaskOpen, setIsTaskOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   const projectData = [
-    { title: "TOTAL PROJECTS", value: "4" },
+    { title: "Total Projects", value: "4" },
+    { title: "New Projects", value: "2" },
     { title: "On Going", value: "1" },
     { title: "On Hold", value: "1" },
     { title: "Completed", value: "1" },
-    { title: "Budget", value: "90 Cr" },
-    { title: "Pending Budget", value: "90 Cr" },
-    { title: "All TASK", value: "150" },
-    { title: "High Priority", value: "6" },
-    { title: "ALL USER/CLIENTS", value: "30" },
   ];
 
-  // Filtered data based on search term
+  const taskData = [
+    { title: "Total Tasks", value: "150" },
+    { title: "New Tasks", value: "50" },
+    { title: "On Going", value: "70" },
+    { title: "On Hold", value: "20" },
+    { title: "Completed", value: "10" },
+  ];
+
   const filteredProjects = projectData.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    item.title.toLowerCase().replace(/\s+/g, '').includes(searchTerm.toLowerCase().replace(/\s+/g, ''))
+  );
+
+  const filteredTasks = taskData.filter((item) =>
+    item.title.toLowerCase().replace(/\s+/g, '').includes(searchTerm.toLowerCase().replace(/\s+/g, ''))
   );
 
   return (
-    <div className={styles.projectsContainer}>
-      {/* Filter Options & Search Box */}
-      <div className={styles.filterBar}>
-        <span className={styles.active} onClick={() => setSearchTerm("")}>OVER ALL</span>
-        <div className={styles.filter}>
-            <span>Filter by Project:</span>
-            <input
-            type="text"
-            className={styles.searchInput}
-            placeholder="Search by title..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            />
+    <div className={styles.container}>
+      {/* Projects Section */}
+      <div className={styles.section}>
+        <div className={styles.header} onClick={() => {
+          setIsProjectOpen(!isProjectOpen);
+          setIsTaskOpen(false);
+        }}>
+          <h2>Projects</h2>
+          <button className={styles.toggleBtn}>{isProjectOpen ? "Hide" : "Show"}</button>
         </div>
+        {isProjectOpen && (
+          <div className={styles.content}>
+            <input
+              type="text"
+              className={styles.searchInput}
+              placeholder="Search Projects..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className={styles.dataContainer}>
+              {filteredProjects.length > 0 ? (
+                filteredProjects.map((item, index) => (
+                  <div key={index} className={styles.dataCard}>
+                    <h3>{item.title}</h3>
+                    <p>{item.value}</p>
+                  </div>
+                ))
+              ) : (
+                <p className={styles.noResults}>No results found</p>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Project Cards */}
-      <div className={styles.projectGrid}>
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map((item, index) => (
-            <div key={index} className={styles.projectCard}>
-              <h3>{item.title}</h3>
-              <p>{item.value}</p>
+      {/* Tasks Section */}
+      <div className={styles.section}>
+        <div className={styles.header} onClick={() => {
+          setIsTaskOpen(!isTaskOpen);
+          setIsProjectOpen(false);
+        }}>
+          <h2>Tasks</h2>
+          <button className={styles.toggleBtn}>{isTaskOpen ? "Hide" : "Show"}</button>
+        </div>
+        {isTaskOpen && (
+          <div className={styles.content}>
+            <input
+              type="text"
+              className={styles.searchInput}
+              placeholder="Search Tasks..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <div className={styles.dataContainer}>
+              {filteredTasks.length > 0 ? (
+                filteredTasks.map((item, index) => (
+                  <div key={index} className={styles.dataCard}>
+                    <h3>{item.title}</h3>
+                    <p>{item.value}</p>
+                  </div>
+                ))
+              ) : (
+                <p className={styles.noResults}>No results found</p>
+              )}
             </div>
-          ))
-        ) : (
-          <p className={styles.noResults}>No results found</p>
+          </div>
         )}
       </div>
     </div>

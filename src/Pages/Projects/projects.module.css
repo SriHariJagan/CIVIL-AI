@@ -89,7 +89,7 @@
 /* Table */
 .projectTable {
   width: 100%;
-  min-width: 900px; /* Ensures table doesn't shrink too much */
+  min-width: 1200px; /* Ensures table doesn't shrink too much */
   border-collapse: collapse;
 }
 
@@ -255,7 +255,8 @@
   }
 
   .projectTable {
-    min-width: 1000px; 
+    min-width: max-content; 
+
   }
 
   .closeNewProjectBtn {

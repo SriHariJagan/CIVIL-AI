@@ -117,6 +117,7 @@
   .taskTable td {
     padding: 12px;
     text-align: center;
+    border: 1px solid #ddd;
     border-bottom: 1px solid var(--border-color);
   }
   
@@ -198,6 +199,7 @@
     }
   
     .taskTable {
+      width: max-content;
       font-size: 12px;
     }
 
