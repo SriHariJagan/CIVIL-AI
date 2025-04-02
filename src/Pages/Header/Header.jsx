@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./header.module.css";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
@@ -8,8 +8,9 @@ const Header = () => {
   const [showInput, setShowInput] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const avathar = "https://static-00.iconduck.com/assets.00/user-icon-1024x1024-dtzturco.png"
+  const avathar = "https://static-00.iconduck.com/assets.00/user-icon-1024x1024-dtzturco.png";
 
   // Toggle Navbar and Close Admin Dropdown
   const toggleNavbar = () => {
@@ -22,6 +23,23 @@ const Header = () => {
     setDropdownOpen((prev) => !prev);
     setMenuOpen(false); // Close navbar
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    if (dropdownOpen) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [dropdownOpen]);
 
   return (
     <header className={styles.headerContainer}>
@@ -61,7 +79,7 @@ const Header = () => {
         </span>
 
         {/* Admin Button with Dropdown */}
-        <div className={styles.adminWrapper}>
+        <div className={styles.adminWrapper} ref={dropdownRef}>
           <button className={styles.adminBtn} onClick={toggleAdminDropdown}>
             <img src={avathar} alt="Avatar" width={20} />
           </button>
@@ -75,9 +93,9 @@ const Header = () => {
               </div>
               <hr />
               <ul>
-                <li><Link to="/">Edit Profile</Link></li>
-                <li><Link to="/">Account & Info</Link></li>
-                <li><button className={styles.logoutBtn}>Log Out</button></li>
+                <li><Link to="/" onClick={() => setDropdownOpen(false)}>Edit Profile</Link></li>
+                <li><Link to="/" onClick={() => setDropdownOpen(false)}>Account & Info</Link></li>
+                <li><button className={styles.logoutBtn} onClick={() => setDropdownOpen(false)}>Log Out</button></li>
               </ul>
             </div>
           )}
