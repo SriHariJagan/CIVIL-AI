@@ -1,0 +1,201 @@
+.container {
+    display: flex;
+    height: 89vh;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background-color: #1f1f1f;
+    color: #fff;
+    width: 250px;
+    transition: width 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    position: relative;
+  }
+  
+  .collapsed {
+    width: 85px;
+  }
+  
+  .mobileOpen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #1f1f1f;
+    z-index: 2000;
+  }
+  
+  /* Top (Logo and Toggle Button) */
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 1rem;
+  }
+  
+  .toggleBtn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .logo {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-left: 0.5rem;
+  }
+  
+  /* History List */
+  .history {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .historyItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #2a2a2a;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .historyItem:hover {
+    background-color: #3a3a3a;
+  }
+  
+  /* Mobile Header */
+  .mobileHeader {
+    display: none;
+    background-color: #007bff;
+    color: #fff;
+    padding: 1rem;
+    /* position: fixed; */
+    width: 100%;
+    top: 0;
+    z-index: 1500;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mobileMenuBtn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* Chat Area */
+  .chatArea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease;
+    background-color: #f5f5f5;
+  }
+  
+  .chatHeader {
+    background-color: #007bff;
+    color: white;
+    padding: 1rem;
+    font-weight: bold;
+  }
+  
+  /* Messages */
+  .chatMessages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #fafafa;
+  }
+  
+  .message {
+    max-width: 60%;
+    padding: 0.75rem 1rem;
+    border-radius: 18px;
+    font-size: 14px;
+  }
+  
+  .received {
+    background-color: #e0e0e0;
+    align-self: flex-start;
+  }
+  
+  .sent {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+  }
+  
+  /* Chat Input */
+  .chatInput {
+    display: flex;
+    padding: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+  }
+  
+  .chatInput input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    margin-right: 0.5rem;
+    box-shadow: 0 0 2px .5px #007bff;
+  }
+  
+  .chatInput button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .chatInput button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Behavior */
+  @media (max-width: 500px) {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100vh;
+      width: 250px;
+      padding-top: 70px;
+    }
+  
+    .mobileOpen {
+      left: 0;
+    }
+  
+    .mobileHeader {
+      display: flex;
+      position: absolute;
+      top: 0px;
+    }
+  
+    .chatArea {
+      margin-left: 0;
+      padding-top: 70px;
+    }
+  }
+  
