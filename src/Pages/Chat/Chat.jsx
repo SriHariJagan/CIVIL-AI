@@ -12,8 +12,20 @@ const Chat = () => {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 508)
+  const [messages, setMessages] = useState([
+    { text: 'Hey there!', type: 'received' },
+    { text: "Hey! What's up?", type: 'sent' }
+  ])
+  const [input, setInput] = useState('')
 
-  // Handle screen resize
+  const suggestedQuestions = [
+    'What are your working hours?',
+    'How can I contact support?',
+    'Tell me about your pricing.',
+    'Do you offer discounts?',
+    'Where are you located?'
+  ]
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 508)
@@ -32,6 +44,17 @@ const Chat = () => {
     } else {
       setCollapsed(!collapsed)
     }
+  }
+
+  const handleSend = (text) => {
+    if (!text.trim()) return
+    const newMessage = { text, type: 'sent' }
+    setMessages((prev) => [...prev, newMessage])
+    setInput('')
+  }
+
+  const handleSuggestionClick = (question) => {
+    handleSend(question)
   }
 
   return (
@@ -73,14 +96,33 @@ const Chat = () => {
       <div className={styles.chatArea}>
         {!isMobile && <div className={styles.chatHeader}>Chat</div>}
 
-        <div className={styles.chatMessages}>
-          <div className={`${styles.message} ${styles.received}`}>Hey there!</div>
-          <div className={`${styles.message} ${styles.sent}`}>Hey! What's up?</div>
+        {/* Suggested Questions */}
+        <div className={styles.suggestions}>
+          {suggestedQuestions.map((q, idx) => (
+            <button key={idx} onClick={() => handleSuggestionClick(q)}>
+              {q}
+            </button>
+          ))}
         </div>
 
+        {/* Messages */}
+        <div className={styles.chatMessages}>
+          {messages.map((msg, idx) => (
+            <div key={idx} className={`${styles.message} ${styles[msg.type]}`}>
+              {msg.text}
+            </div>
+          ))}
+        </div>
+
+        {/* Input */}
         <div className={styles.chatInput}>
-          <input type="text" placeholder="Type a message..." />
-          <button>Send</button>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a message..."
+          />
+          <button onClick={() => handleSend(input)}>Send</button>
         </div>
       </div>
     </div>
