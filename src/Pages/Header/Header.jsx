@@ -8,20 +8,23 @@ const Header = () => {
   const [showInput, setShowInput] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
   const dropdownRef = useRef(null);
+  const navRef = useRef(null);
+  const menuBtnRef = useRef(null); // 🔧 New ref for hamburger button
 
   const avathar = "https://static-00.iconduck.com/assets.00/user-icon-1024x1024-dtzturco.png";
 
   // Toggle Navbar and Close Admin Dropdown
   const toggleNavbar = () => {
     setMenuOpen((prev) => !prev);
-    setDropdownOpen(false); // Close profile dropdown
+    setDropdownOpen(false);
   };
 
   // Toggle Admin Dropdown and Close Navbar
   const toggleAdminDropdown = () => {
     setDropdownOpen((prev) => !prev);
-    setMenuOpen(false); // Close navbar
+    setMenuOpen(false);
   };
 
   // Close dropdown when clicking outside
@@ -33,13 +36,36 @@ const Header = () => {
     };
 
     if (dropdownOpen) {
-      document.addEventListener("click", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpen]);
+
+  // Close navbar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuOpen &&
+        navRef.current &&
+        !navRef.current.contains(event.target) &&
+        menuBtnRef.current &&
+        !menuBtnRef.current.contains(event.target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
 
   return (
     <header className={styles.headerContainer}>
@@ -51,18 +77,18 @@ const Header = () => {
       </div>
 
       {/* Navbar */}
-      <nav className={`${styles.navbar} ${menuOpen ? styles.navOpen : ""}`}>
+      <nav ref={navRef} className={`${styles.navbar} ${menuOpen ? styles.navOpen : ""}`}>
         <ul>
-          <li onClick={() =>setMenuOpen(false)}>
+          <li onClick={() => setMenuOpen(false)}>
             <NavLink to="/" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Overview</NavLink>
           </li>
-          <li onClick={() =>setMenuOpen(false)}>
+          <li onClick={() => setMenuOpen(false)}>
             <NavLink to="/projects" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Projects</NavLink>
           </li>
-          <li onClick={() =>setMenuOpen(false)}>
+          <li onClick={() => setMenuOpen(false)}>
             <NavLink to="/tasks" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Tasks</NavLink>
           </li>
-          <li onClick={() =>setMenuOpen(false)}>
+          <li onClick={() => setMenuOpen(false)}>
             <NavLink to="/users" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Users</NavLink>
           </li>
         </ul>
@@ -84,7 +110,6 @@ const Header = () => {
             <img src={avathar} alt="Avatar" width={20} />
           </button>
 
-          {/* Dropdown Menu */}
           {dropdownOpen && (
             <div className={styles.adminDropdown}>
               <div className={styles.profileHeader}>
@@ -102,7 +127,7 @@ const Header = () => {
         </div>
 
         {/* Hamburger Menu */}
-        <button className={styles.menuBtn} onClick={toggleNavbar}>
+        <button ref={menuBtnRef} className={styles.menuBtn} onClick={toggleNavbar}>
           {menuOpen ? <IoMdClose size={24} /> : <FiMenu size={24} />}
         </button>
       </div>
