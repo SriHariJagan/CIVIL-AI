@@ -53,16 +53,16 @@ const Header = () => {
       {/* Navbar */}
       <nav className={`${styles.navbar} ${menuOpen ? styles.navOpen : ""}`}>
         <ul>
-          <li>
+          <li onClick={() =>setMenuOpen(false)}>
             <NavLink to="/" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Overview</NavLink>
           </li>
-          <li>
+          <li onClick={() =>setMenuOpen(false)}>
             <NavLink to="/projects" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Projects</NavLink>
           </li>
-          <li>
+          <li onClick={() =>setMenuOpen(false)}>
             <NavLink to="/tasks" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Tasks</NavLink>
           </li>
-          <li>
+          <li onClick={() =>setMenuOpen(false)}>
             <NavLink to="/users" className={({ isActive }) => (isActive ? styles.activeLink : "")}>Users</NavLink>
           </li>
         </ul>
