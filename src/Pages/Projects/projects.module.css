@@ -109,7 +109,7 @@
 /* Status Labels */
 .status {
   font-weight: 500;
-  padding: 6px 12px;
+  text-transform: capitalize;
   text-align: center;
   font-size: 14px;
 }

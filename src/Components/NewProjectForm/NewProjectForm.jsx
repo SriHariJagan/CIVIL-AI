@@ -51,7 +51,24 @@ const NewProjectForm = () => {
               <label>Revised Project Cost:</label>
               <input type="text" placeholder="Enter Revised Cost" />
             </div>
+
+            <div className={styles.formRow}>
+              <label>Latest Comment:</label>
+              <input type="text" placeholder="Enter Latest Comment" />
+            </div>
+
+            <div className={styles.formRow}>
+              <label>Physical Progress:</label>
+              <input type="text" placeholder="Enter Physical Progress" />
+            </div>
+
+            <div className={styles.formRow}>
+              <label>Financial Progress:</label>
+              <input type="text" placeholder="Enter Financial Progress" />
+            </div>
+
           </div>
+          
 
           {/* Right Column */}
           <div className={styles.formGroup}>
@@ -83,15 +100,7 @@ const NewProjectForm = () => {
               <input type="text" placeholder="Enter Delay Days" />
             </div>
 
-            <div className={styles.formRow}>
-              <label>Physical Progress:</label>
-              <input type="text" placeholder="Enter Physical Progress" />
-            </div>
-
-            <div className={styles.formRow}>
-              <label>Financial Progress:</label>
-              <input type="text" placeholder="Enter Financial Progress" />
-            </div>
+            
 
             <div className={styles.formRow}>
               <label htmlFor="projectStatus">Project Status:</label>
@@ -104,6 +113,26 @@ const NewProjectForm = () => {
               </select>
             </div>
 
+            <div className={styles.formRow}>
+              <label>Land Acquisition Cost:</label>
+              <input type="text" placeholder="Enter Land Acquisition Cost" />
+            </div>
+
+            <div className={styles.formRow}>
+              <label>Cure Period Notice Date:</label>
+              <input type="text" placeholder="Enter Cure Period Notice Datet" />
+            </div>
+
+            <div className={styles.formRow}>
+              <label>Termination Notice Date:</label>
+              <input type="text" placeholder="Enter Termination Notice Date" />
+            </div>
+
+
+            <div className={styles.formRow}>
+              <label>Termination Proposal Date:</label>
+              <input type="text" placeholder="Enter Termination Proposal Date" />
+            </div>
 
           </div>
         </div>

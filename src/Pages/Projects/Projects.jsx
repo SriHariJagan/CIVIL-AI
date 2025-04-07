@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import styles from "./projects.module.css";
 import { projects } from "../../data";
 import NewProjectForm from "../../Components/NewProjectForm/NewProjectForm";
-import ProjectModal from "../../Components/ProjectModel/ProjectModal";
+import ProjectModal from "../../Components/ProjectModal/ProjectModal";
 import { Link } from "react-router-dom";
+import { normalize } from "../../Utils/filterData";
 
 const Projects = () => {
   const [showNewProject, setShowNewProject] = useState(false);
@@ -35,7 +36,7 @@ const Projects = () => {
   const filteredProjects = projects.filter((project) =>
     selectedFilters.includes("all")
       ? true
-      : selectedFilters.includes(project.status.toLowerCase().replace(/\s+/g, ""))
+      : selectedFilters.includes(normalize(project.status))
   );
 
   return (
@@ -73,7 +74,8 @@ const Projects = () => {
                   type="checkbox"
                   checked={selectedFilters.includes(status)}
                   onChange={() => handleFilterChange(status)}
-                /> {status.charAt(0).toUpperCase() + status.slice(1)}
+                />
+                  <span className={styles.status}>{status}</span>
               </label>
             ))}
           </div>
@@ -109,7 +111,7 @@ const Projects = () => {
                   <td className={styles.progress}>{project.progress}</td>
                   <td className={styles.contractor}>{project.contractor}</td>
                   <td>{project.dueDate}</td>
-                  <td className={`${styles.status} ${styles[project.status.replace(/\s+/g, "").toLowerCase()]}`}>
+                  <td className={`${styles.status} ${styles[normalize(project.status)]}`}>
                     {project.status}
                   </td>
                   <td className={styles.actions}>

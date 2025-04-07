@@ -3,12 +3,7 @@ import styles from "./user.module.css";
 import UserModal from "../../Components/UserModal/UserModal";
 import NewUserForm from "../../Components/NewUserForm/NewUserForm";
 
-const usersData = [
-  { id: 1, name: "USER1", totalTasks: 5, pending: 2, priority: "Medium", joined: "30 March 2025", status: "AVERAGE", notifications: "On" },
-  { id: 2, name: "USER2", totalTasks: 8, pending: 1, priority: "Low", joined: "30 March 2025", status: "GOOD", notifications: "Off" },
-  { id: 3, name: "USER3", totalTasks: 9, pending: 4, priority: "High", joined: "30 March 2025", status: "BAD", notifications: "On" },
-  { id: 4, name: "USER4", totalTasks: 10, pending: 0, priority: "Low", joined: "30 March 2025", status: "EXCELLENT", notifications: "On" },
-];
+import { usersData } from "../../data";
 
 const statusColors = {
   AVERAGE: "#FFC107",
@@ -26,18 +21,29 @@ const UserTable = () => {
   const [modalData, setModalData] = useState(null);
   const [modalMode, setModalMode] = useState("view");
 
-  const filteredUsers = users.filter(user =>
-    (filterName === "" || user.name.toLowerCase().includes(filterName.toLowerCase())) &&
-    (filterTotalTasks === "" || user.totalTasks.toString().includes(filterTotalTasks)) &&
-    (filterStatus === "All" || user.status === filterStatus)
+  const filteredUsers = users.filter(
+    (user) =>
+      (filterName === "" ||
+        user.name.toLowerCase().includes(filterName.toLowerCase())) &&
+      (filterTotalTasks === "" ||
+        user.totalTasks.toString().includes(filterTotalTasks)) &&
+      (filterStatus === "All" || user.status === filterStatus)
   );
 
   return (
     <>
       {showNewUserForm && (
         <div className={styles.newUserForm}>
-          <button className={styles.closeFormBtn} onClick={() => setShowNewUserForm(false)}>X</button>
-          <NewUserForm onClose={() => setShowNewUserForm(false)} setUsers={setUsers} />
+          <button
+            className={styles.closeFormBtn}
+            onClick={() => setShowNewUserForm(false)}
+          >
+            X
+          </button>
+          <NewUserForm
+            onClose={() => setShowNewUserForm(false)}
+            setUsers={setUsers}
+          />
         </div>
       )}
 
@@ -47,7 +53,7 @@ const UserTable = () => {
           mode={modalMode}
           onClose={() => setModalData(null)}
           onDelete={() => {
-            setUsers(users.filter(u => u.id !== modalData.id));
+            setUsers(users.filter((u) => u.id !== modalData.id));
             setModalData(null);
           }}
         />
@@ -76,12 +82,30 @@ const UserTable = () => {
               className={styles.filterSelect}
             >
               <option value="All">All Status</option>
-              {Object.keys(statusColors).map(status => (
-                <option key={status} value={status}>{status}</option>
+              {Object.keys(statusColors).map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
               ))}
             </select>
+
+            <button
+              className={styles.clearBtn}
+              onClick={() => {
+                setFilterName("");
+                setFilterTotalTasks("");
+                setFilterStatus("All");
+              }}
+            >
+              Clear Filter
+            </button>
           </div>
-          <button className={styles.addUserBtn} onClick={() => setShowNewUserForm(true)}>Add User</button>
+          <button
+            className={styles.addUserBtn}
+            onClick={() => setShowNewUserForm(true)}
+          >
+            Add User
+          </button>
         </div>
 
         <div className={styles.tableContainer}>
@@ -103,17 +127,54 @@ const UserTable = () => {
               {filteredUsers.map((user, index) => (
                 <tr key={user.id}>
                   <td>{index + 1}</td>
-                  <td><a href="#" className={styles.link}>{user.name}</a></td>
+                  <td>
+                    <a href="#" className={styles.link}>
+                      {user.name}
+                    </a>
+                  </td>
                   <td>{user.totalTasks}</td>
                   <td>{user.pending}</td>
                   <td>{user.priority}</td>
                   <td>{user.joined}</td>
-                  <td style={{ backgroundColor: statusColors[user.status], color: "white", padding: "5px", borderRadius: "5px" }}>{user.status}</td>
+                  <td
+                    style={{
+                      backgroundColor: statusColors[user.status],
+                      color: "white",
+                      padding: "5px",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    {user.status}
+                  </td>
                   <td>{user.notifications}</td>
                   <td>
-                    <button className={styles.view} onClick={() => { setModalData(user); setModalMode("view"); }}>VIEW</button>
-                    <button className={styles.edit} onClick={() => { setModalData(user); setModalMode("edit"); }}>EDIT</button>
-                    <button className={styles.delete} onClick={() => { setModalData(user); setModalMode("delete"); }}>DELETE</button>
+                    <button
+                      className={styles.view}
+                      onClick={() => {
+                        setModalData(user);
+                        setModalMode("view");
+                      }}
+                    >
+                      VIEW
+                    </button>
+                    <button
+                      className={styles.edit}
+                      onClick={() => {
+                        setModalData(user);
+                        setModalMode("edit");
+                      }}
+                    >
+                      EDIT
+                    </button>
+                    <button
+                      className={styles.delete}
+                      onClick={() => {
+                        setModalData(user);
+                        setModalMode("delete");
+                      }}
+                    >
+                      DELETE
+                    </button>
                   </td>
                 </tr>
               ))}

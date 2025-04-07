@@ -117,6 +117,19 @@
   .link:hover {
     text-decoration: underline;
   }
+
+  .clearBtn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .clearBtn:hover {
+    background-color: #b52b2b;
+  }
   
   .view, .edit, .delete {
     padding: 6px 10px;

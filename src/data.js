@@ -12,4 +12,28 @@ export const projects = [
     { id: 2, name: "TASK2", description: "Task Description", assignedTo: "Alice", startDate: "2025-03-20", dueDate: "2025-03-28", status: "Completed", priority: "Medium", project: "NH21" },
     { id: 3, name: "TASK3", description: "Task Description", assignedTo: "Bob", startDate: "2025-03-22", dueDate: "2025-04-01", status: "On Hold", priority: "Low", project: "NH22" },
   ];
+
+
+  export const usersData = [
+    { id: 1, name: "USER1", totalTasks: 5, pending: 2, priority: "Medium", joined: "30 March 2025", status: "AVERAGE", notifications: "On" },
+    { id: 2, name: "USER2", totalTasks: 8, pending: 1, priority: "Low", joined: "30 March 2025", status: "GOOD", notifications: "Off" },
+    { id: 3, name: "USER3", totalTasks: 9, pending: 4, priority: "High", joined: "30 March 2025", status: "BAD", notifications: "On" },
+    { id: 4, name: "USER4", totalTasks: 10, pending: 0, priority: "Low", joined: "30 March 2025", status: "EXCELLENT", notifications: "On" },
+  ];
   
+
+ export  const projectData = [
+    { title: "Total Projects", value: "4" },
+    { title: "New Projects", value: "2" },
+    { title: "On Going", value: "1" },
+    { title: "On Hold", value: "1" },
+    { title: "Completed", value: "1" },
+  ];
+
+  export const taskData = [
+    { title: "Total Tasks", value: "150" },
+    { title: "New Tasks", value: "50" },
+    { title: "On Going", value: "70" },
+    { title: "On Hold", value: "20" },
+    { title: "Completed", value: "10" },
+  ];

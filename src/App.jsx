@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import Login from "./Pages/LoginPage/LoginPage";
@@ -10,8 +10,13 @@ import User from "./Pages/User/User";
 import Chat from "./Pages/Chat/Chat";
 
 import chartIcon from "/Images/chat.png";
+import Details from "./Components/Details/Details";
 
 const App = () => {
+
+  const [searchData, setSearchData] = useState("");
+
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,9 +26,13 @@ const App = () => {
     }
   };
 
+  const getDetails = (data) => {
+    setSearchData(data);
+  }
+
   return (
     <div>
-      <Header />
+      <Header  getData = {getDetails}/>
 
       <div>
         <Routes>
@@ -33,6 +42,7 @@ const App = () => {
           <Route path="/users" element={<User />} />
           <Route path="/login" element={<Login />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/details" element={<Details data = {searchData}/>} />
         </Routes>
       </div>
 
